@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="file:///storage/emulated/0/HTML Editor/button.css">
+</head>
+<body>
+<div id='home'></div>
+<!--div style='position:fixed;top:50%' id='some'>something </div>
+<button  onclick ="move();">move</button>
+<button  onclick ="stop();">Stop !</button-->
+<script src="file:///storage/emulated/0/HTML Editor/randomChar.js"></script>
+<!--script src="file:///storage/emulated/0/HTML Editor/ballonLtr.js"></script -->
+
+<script>
+var ar=[0];
+var spd=1;
+var index=1;
+var entrd="";
+var pntr=-1;
+
+(function (){
+alert('ok');
+init();
+}) ()
+/*
+INITIALISE with dropdown list , start button
+*/
+function init(){
+document.getElementById('home').innerHTML='<select id="sel" style="position:fixed;top:45%;left:25%;"width:10%;height:5%;><option value="0" >a-z</option><option value ="1">A-Z </option ><option value ="2">0-9 </option ><option value ="3">a-z ,A-Z </option ><option value ="4">a-z , A-Z , 0-9</option ></select><button id="stbtn"  onclick ="start();" style="position:fixed;top:50%;left: 45%;" width=10%>Start</button>';
+}
+
+
+function  start()
+{
+var sel=document.getElementById('sel');
+var selected=sel.options[sel.selectedIndex];
+var type=selected.getAttribute('value');
+/*alert(type);
+flag=1;*/
+var str='<button onclick="clearInterval(ar[index--]);" >stop</button>';
+str+='<button onclick="init()">back</button><button onclick="moveUp(prompt(),10);">move</button>';/*
+str+='<button id="typ" contenteditable style="background:#08f;color:white;" onclick="startBubbles();" onkeypress="writeHome()">type here</button>';
+*/str+='<input id="typ" type="button" value="type here" contenteditable />';
+document.getElementById('home').innerHTML=str;
+/*document.getElementById("typ").addEventListener("keypress",writeHome,true);*/
+document.getElementById("typ").addEventListener('keypress',function(){document.getElementById("home").innerHTML+="o";},false);
+}
+function startBubbles()
+{
+var myVar;
+if(type==0){
+myVar = setInterval(op0, 100*spd);
+}else if(type==1){
+myVar = setInterval(op1, 100);
+}else if(type==2){
+myVar = setInterval(op2, 100);
+}else if(type==3){
+myVar = setInterval(op3, 100);
+}else if(type==4){
+myVar = setInterval(op4, 100);
+}
+ar[++index]=myVb
+}
+function writeHome()
+{
+var hm=document.getElementById('home');
+var str=hm.innerHTML;
+str+= "o";
+hm.innerHTML=str;
+}
+
+
+
+
+function op0()
+{
+alert(document.getElementById('typ').value);
+newBallon(randSmLtr());
+}
+function op1()
+{
+newBallon(randCpLtr());
+}
+function op2()
+{
+newBallon(randDgt());
+}
+function op3()
+{
+newBallon(randLtr());
+}
+function op4()
+{
+newBallon(randChr());
+} 
+
+
+
+
+
+
+
+
+function newBallon(id)
+{
+if(entrd.search(id)==-1){
+var r=10+Math.floor(Math.random()*80);
+var str='<div id="'+id+'"style="position:absolute;top:90%;left:'+r+'%; "></div>';
+var hm=document.getElementById('home');
+var temp=hm.innerHTML;
+hm.innerHTML=temp+str;
+
+ballon(id);
+}
+}
+
+/*
+(function (){
+alert('ballon ');
+ballon('a');
+})*/
+
+
+function ballon(ltr)
+{
+var c1=randClr();
+var c2=randClr();
+var c3=randClr();
+/*alert(document.getElementById('home').innerHTML);alert(ltr);*/
+var str='<svg height=40 width="10%"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:rgb(';
+str+=c1+','+c2+','+c3+');stop-opacity:1" /><stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" /> </linearGradient></defs><ellipse cx="50%" cy="50%" rx="50%" ry="30%" fill="url(#grad1)" /> <text fill="#ffffff" font-size="100%" text-align=center font-family="Verdana"  x="25%" y="60%">';
+str+= ltr + ' </text> Sorry, your browser does not support inline SVG.</svg>';
+document.getElementById(ltr).innerHTML=str;
+}
+
+
+
+
+
+function moveUp(id,amt)
+{
+/*alert('ok');*/
+var stl=document.getElementById(id).style;
+var tp=stl.top;
+if(tp){
+var tpval=parseFloat(tp)-parseFloat(amt);
+stl.top=tpval+"%";
+}else{
+stl.top=10;
+}
+}
+
+
+
+
+
+
+</script>
+
+<!--img src="file:///storage/emulated/0/HTML Editor/ballonLtr.js"-->
+</body>
+
+</html>

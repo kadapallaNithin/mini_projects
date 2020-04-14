@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="file:///storage/emulated/0/HTML Editor/button.css">
+<style>
+div{
+border:1px dashed grey;
+}
+</style>
+</head>
+<body>
+<div id='home'></div>
+<!--div style='position:fixed;top:50%' id='some'>something </div>
+<button  onclick ="move();">move</button>
+<button  onclick ="stop();">Stop !</button-->
+<script src="file:///storage/emulated/0/HTML Editor/randomChar.js"></script>
+<!--script src="file:///storage/emulated/0/HTML Editor/ballonLtr.js"></script -->
+ <script type="text/javascript">
+ //var keysDown = new Array(256);
+ var output;
+ function initial(){
+  output = document.getElementById("output");
+ document.onkeydown = updateKeys;
+ } // end init
+ updateKeys = function(e){
+  //set current key
+  burst(String.fromCharCode(e.keyCode));
+  currentKey = e.keyCode;
+  output.innerHTML = "current key: " + currentKey;
+ }
+ //keyboard constants simplify working with the keyboard
+ K_A = 65; K_B = 66; K_C = 67; K_D = 68; K_E = 69; K_F = 70; K_G = 71;
+ K_H = 72; K_I = 73; K_J = 74; K_K = 75; K_L = 76; K_M = 77; K_N = 78;
+ K_O = 79; K_P = 80; K_Q = 81; K_R = 82; K_S = 83; K_T = 84; K_U = 85;
+ K_V = 86; K_W = 87; K_X = 88; K_Y = 89; K_Z = 90;
+ K_LEFT = 37; K_RIGHT = 39; K_UP = 38;K_DOWN = 40; K_SPACE = 32;
+ K_ESC = 27; K_PGUP = 33; K_PGDOWN = 34; K_HOME = 36; K_END = 35;
+ K_0 = 48; K_1 = 49; K_2 = 50; K_3 = 51; K_4 = 52; K_5 = 53;
+ K_6 = 54; K_7 = 55; K_8 = 56; K_9 = 57;
+ </script>
+<script>
+var ar=[0];
+var score=0;
+var missed=0;
+var ar1=[1];
+var lvl=1;
+var index=1;
+var index1=1;
+var entrd="";
+var remaining="";
+var pntr=-1;
+
+(function (){
+alert('ok');
+init();
+}) ()
+/*
+INITIALISE with dropdown list , start button
+*/
+function init(){
+document.getElementById('home').innerHTML='<select id="sel" style="position:fixed;top:45%;left:25%;"width:10%;height:5%;><option value="1" >a-z</option><option value ="1">A-Z </option ><option value ="2">0-9 </option ><option value ="3">a-z ,A-Z </option ><option value ="4">a-z , A-Z , 0-9</option ></select><button id="stbtn"  onclick ="start();" style="position:fixed;top:50%;left: 45%;" width=10%>Start</button>';
+}
+
+
+function  start()
+{
+var sel=document.getElementById('sel');
+var selected=sel.options[sel.selectedIndex];
+var type=selected.getAttribute('value');
+/*alert(type);
+flag=1;*/
+var str='<button onclick="clearInterval(ar[index--]);clearInterval(ar[index1--]);" >stop</button>';
+str+='<button onclick="init()"> <== back</button>';
+str+="<button onclick='initial();startBubbles("+type+");' >continue</button> ";
+
+str+="<b id='types' contenteditable >type here</b>";
+document.getElementById('home').innerHTML=str;
+var tp=document.getElementById('types');
+tp.addEventListener('keypress',function(){str=tp.innerHTML;alert(str);tp.innerHTML=str.charAt(1);},false);
+}
+function startBubbles(type)
+{
+document.getElementById('types').innerText="# ";
+/*&alert('strar');*/
+var myVar;
+var up;
+if(type==0){
+myVar = setInterval(op0, 1000/lvl);
+}else if(type==1){
+myVar = setInterval(op1,1000/lvl);
+}else if(type==2){
+myVar = setInterval(op2, 1000/lvl);
+}else if(type==3){
+myVar = setInterval(op3, 1000/lvl);
+}else if(type==4){
+myVar = setInterval(op4, 1000/lvl);
+}
+up=setInterval(moveAll,100);
+ar[++index]=myVar;
+ar1[index1++]=up;
+}
+function writeHome()
+{
+var hm=document.getElementById('home');
+var str=hm.innerHTML;
+str+= "o";
+hm.innerHTML=str;
+}
+
+
+
+
+function op0()
+{/*
+alert('done');
+alert(document.getElementById('types').value);*/
+newBallon(randSmLtr());
+}
+function op1()
+{
+newBallon(randCpLtr());
+}
+function op2()
+{
+newBallon(randDgt());
+}
+function op3()
+{
+newBallon(randLtr());
+}
+function op4()
+{
+newBallon(randChr());
+} 
+
+
+
+
+
+function moveAll()
+{
+/*whereIsBug();
+alert(remaining.charAt(*/
+for(var i=0; i<remaining.length;i++){
+moveUp(remaining.charAt(i),1);
+/*document.getElementById('home').innerHTML+=reamaining;
+*/}
+}
+
+
+
+
+
+
+
+function newBallon(id)
+{
+score+=lvl;
+lvl=Math.floor(score/10);
+/*alert(id+remaining+remaining.search(id));
+*/
+if/*(remaining.search(id)==-1)*/(entrd.search(id)==-1){
+var r=10+Math.floor(Math.random()*70);
+var str='<div id="'+id+'"style="position:absolute;top:90%;left:'+r+'%; "></div>';
+var hm=document.getElementById('home');
+var temp=hm.innerHTML;
+hm.innerHTML=temp+str;
+entrd+=id;
+}else{var a=document.getElementById(id);
+
+a.style.top='90%';
+}
+remaining +=id;
+/*alert(entrd);
+ballon(id,randClr(),randClr(),randClr());*/
+
+
+
+
+/*an edit in v8.7
+ballon(id,0,120,233);*/
+
+document.getElementById(id).innerHTML="<h4>"+id+"</h4>";
+}
+
+/*
+(function (){
+alert('ballon ');
+ballon('a');
+})*/
+
+
+function ballon(ltr,c1,c2,c3)
+{
+/*var c1=randClr();
+var c2=randClr();
+var c3=randClr();
+alert(document.getElementById('home').innerHTML);alert(ltr);*/
+var str='<svg height=40 width="10%"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:rgb(';
+str+=parseInt(c1)+','+parseInt(c2)+','+parseInt(c3)+');stop-opacity:1" /><stop offset="100%" style="stop-color:rgb(';
+str+=randClr()+','+randClr()+','+randClr()+');stop-opacity:1" /> </linearGradient></defs><ellipse cx="50%" cy="50%" rx="50%" ry="30%" fill="url(#grad1)" /> <text fill="#ffffff" font-size="100%" text-align=center font-family="Verdana"  x="25%" y="60%">';
+str+= ltr + ' </text> Sorry, your browser does not support inline SVG.</svg>';
+document.getElementById(ltr).innerHTML=str;
+/*alert(document.getElementById(ltr).innerHTML);*/
+}
+
+
+
+
+
+function moveUp(id,amt)
+{
+/*alert('ok');*/
+var stl=document.getElementById(id).style;
+var tp=stl.top;
+
+if(parseInt(tp) > amt){
+var tpval=parseFloat(tp)-parseFloat(amt);
+stl.top=tpval+"%";
+}else{
+document.getElementById(id).innerHTML='';/*
+alert(remaining);*/
+remaining=remaining.replace(id,"");
+stl.top=5;
+missed++;
+if(missed > 10){
+alert('Game over #169 ');
+clearInterval(ar1[index1--]);
+clearInterval(ar[index--]);
+/*document.getElementById('home').innerHTML='<h1>Game over</h1>';*/
+}
+/*alert(remaing+','+id);*/
+}
+}
+
+
+
+
+function burst(id)
+{
+document.getElementById(id).innerHTML="";
+remaining=remaining.replace(id,'');
+}
+
+
+
+
+
+
+
+
+
+function whereIsBug()
+{
+var str=document.getElementById('home').innerHTML;
+for( var i=0; i<entrd.length;i++){
+str=str.replace('<div id="'+entrd.charAt(i)+'"style="position:absolute;top:90%;left:','');
+str=str.replace('</div>','');
+}
+if(str.search('<div>')!=-1){
+alert(str);
+}
+}
+
+</script>
+
+<!--img src="file:///storage/emulated/0/HTML Editor/ballonLtr.js"-->
+</body>
+
+</html>

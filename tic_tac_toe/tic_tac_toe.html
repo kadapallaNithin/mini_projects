@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    table {
+      margin-left: 25%;
+      margin-top: 20px;
+      border: 2px solid #abd;
+    }
+
+    td {
+      text-shadow: 3px 2px 2px green;
+      text-align: center;
+      height: 70px;
+      width: 70px;
+      font-size: 60px;
+      color: orange;
+      border: 1px solid skyblue;
+    }
+  </style>
+</head>
+
+<body>
+  <table id='i'></table>
+  <div id='k'></div>
+  <script>
+    var i = 0;
+    var b = [[9, 8, 7], [6, 5, 4], [3, 2, 10]];
+    (function () {
+      var el = document.getElementById('i');
+      for (var j = 0; j < 3; j++) {
+        el.innerHTML += "<tr><td id='" + j + "0' onclick='tic(this)'> </td><td id='" + j + "1' onclick='tic(this)'> </td><td id='" + j + "2' onclick='tic(this)'> </td></tr>";
+      }
+    })()
+    function tic(id) {
+      var x = id.id.charAt(0);
+      var y = id.id.charAt(1);
+      if (i < 9 && b[x][y] > 1) {
+        if (i % 2 == 0) {
+          id.innerHTML = "X";
+          b[x][y] = 0;
+        } else {
+          id.innerHTML = "O";
+          b[x][y] = 1;
+        }
+        i++;
+        var l = check();
+        if (l >= 0 && l < 3) {
+          if (i % 2 == 0) {
+            alert("O  won the game :)");
+          } else {
+            alert("X  won the game :)");
+          }
+          i = 9;
+        }
+      }
+    }
+    function check() {
+      for (var j = 0; j < 3; j++) {
+        if (b[j][0] == b[j][1] && b[j][1] == b[j][2]) {
+          grn(j, '0', j, '1', j, '2');
+          return 0;
+        }
+      }
+      for (var j = 0; j < 3; j++) {
+        if (b[0][j] == b[1][j] && b[1][j] == b[2][j]) {
+          grn('0', j, '1', j, '2', j);
+          return 1;
+        }
+      }
+      if (b[1][1] == b[0][0] && b[1][1] == b[2][2]) {
+        grn(0, 0, 1, 1, 2, 2);
+        return 2;
+      }
+      if (b[1][1] == b[0][2] && b[1][1] == b[2][0]) {
+        grn(1, 1, 0, 2, 2, 0);
+        return 2;
+      }
+    }
+    function grn(a1, b1, a2, b2, a3, b3) {
+      document.getElementById(a1.toString() + b1).style.color = "green";
+      document.getElementById(a2.toString() + b2).style.color = "green";
+      document.getElementById(a3.toString() + b3).style.color = "green";
+    }
+  </script>
+</body>
+</html>

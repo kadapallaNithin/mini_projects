@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="file:///storage/emulated/0/HTML Editor/button.css">
+</head>
+<body>
+<div id='home'></div>
+<!--div style='position:fixed;top:50%' id='some'>something </div>
+<button  onclick ="move();">move</button>
+<button  onclick ="stop();">Stop !</button>
+<button onclick ="moveUp('some',100)">moveUp</buttonk-->
+<script src="file:///storage/emulated/0/HTML Editor/randomChar.js"></script>
+<script>
+var ar=[0];
+var index=1;
+var entrd="";
+var pntr=-1;
+
+(function (){
+alert('ok');
+init();
+}) ()
+
+function init(){
+document.getElementById('home').innerHTML='<select id="sel" style="position:fixed;top:45%;left:25%;"width:10%;height:5%;><option value="0" >a-z</option><option value ="1">A-Z </option ><option value ="2">0-9 </option ><option value ="3">a-z ,A-Z </option ><option value ="4">a-z , A-Z , 0-9</option ></select><button id="stbtn"  onclick ="start();" style="position:fixed;top:50%;left: 45%;" width=10%>Start</button>';
+}
+function move()
+{
+alert('ok');
+}
+function  start()
+{
+var sel=document.getElementById('sel');
+var selected=sel.options[sel.selectedIndex];
+var type=selected.getAttribute('value');
+alert(type);
+/*flag=1;*/
+document.getElementById('home').innerHTML='<button onclick="clearInterval(myVar);" >stop</button><button onclick="init()">continue</button><div id="a"></div>';
+if(type==0){
+myVar = setInterval(op0, 1000);
+}else if(type==1){
+myVar = setInterval(op1, 1000);
+}else if(type==2){
+myVar = setInterval(op2, 1000);
+}else if(type==3){
+myVar = setInterval(op3, 1000);
+}else if(type==4){
+myVar = setInterval(op4, 1000);
+}
+ar[++index]=myVb
+}
+function op0()
+{
+var ltr=randSmLtr();
+ballon(ltr);
+}
+function op1()
+{
+var ltr=randCpLtr();
+ballon(ltr);
+}
+function op2()
+{
+var ltr=randDgt();
+ballon(ltr);
+}
+function op3()
+{
+var ltr=randLtr();
+ballon(ltr);
+}
+function op4()
+{
+ballon(randChr());
+} 
+
+function ballon(ltr)
+{
+var c1=randClr();
+var c2=randClr();
+var c3=randClr();
+/*alert("ok");var ltr=randLtr();alert(ltr);*/
+var str='<svg height="14%" width="10%"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:rgb(';
+str+=c1+','+c2+','+c3+');stop-opacity:1" /><stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" /> </linearGradient></defs><ellipse cx="50%" cy="50%" rx="50%" ry="30%" fill="url(#grad1)" /> <text fill="#ffffff" font-size="150%" font-family="Verdana"  x="25%" y="60%">';
+str+= ltr + ' </text> Sorry, your browser does not support inline SVG.</svg>';
+document.getElementById('a').innerHTML=str;
+}
+
+
+</script>
+
+<!--script src="file:///storage/emulated/0/HTML Editor/ballonLtr.js"></script -->
+<!--img src="file:///storage/emulated/0/HTML Editor/ballonLtr.js"-->
+</body>
+
+</html>

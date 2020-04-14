@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body>
+<select id='sel' style="position:fixed;top: 45%;left: 25%;" width:10%;height:5%;>
+<option value="0" >a-z</option>
+<option value ="1">A-Z </option >
+<option value ="2">a-z ,A-Z </option >
+<option value ="3">a-z , A-Z , 0-9</option >
+</select>
+<button id="stbtn"  onclick ="start();" style="position:fixed;top:50%;left: 45%;" width=10%>Start</button>
+<div style='position:fixed;top:50%' id='some'>something </div>
+<!--button  onclick ="move();">move</button>
+<button  onclick ="stop();">Stop !</button-->
+<button onclick ="moveUp('some',100)">moveUp</buttonk>
+<script >
+function move()
+{
+alert('ok');
+}
+function randClr()
+{
+return  Math.floor(Math.random()*255);
+}
+function  randCpLtr()
+{
+return String.fromCharCode(65+Math.floor(Math.random()*26));
+}
+function randSmLtr()
+{
+return String.fromCharCode(97+Math.floor(Math.random()*26));
+}
+function randLtr ()
+{
+var r=Math.floor (Math.random ()*5);
+if(r==0){
+return randCpLtr();
+}
+return randSmLtr();
+}
+/*(function ()
+{
+var type=prompt("Select from : 1.a-z; 2.A-Z; 3.0-9; 4.A-Z & a-z  any key. All the above");
+start(type);
+alert (type);
+
+})()
+
+function start(type)*/
+function  start()
+{
+var sel=document.getElementById('sel');
+var selected=sel.options[sel.selectedIndex];
+var type=selected.getAttribute('value');
+/*alert(type);*/
+flag=1;
+document.write('<button onclick="flag=0" >stop</button><button onclick="alert(flag);alert(i)">test</button><div id="a"></div>');
+if(type==0){
+/*for(i=0; i<5&&flag; i++){/*setTimeout(ballon(randSmLtr()),5000);setTimeout(ballon,10000);*//*alert(i);}*//*tm=setInterval(alert(randSmLtr()),100);*/
+myVar = setInterval(op0, 1000);
+}
+}
+function op0()
+{
+var ltr=randSmLtr();
+ballon(ltr);
+}
+function ballon(ltr)
+{
+var c1=randClr();
+var c2=randClr();
+var c3=randClr();
+/*alert("ok");var ltr=randLtr();alert(ltr);*/
+var str='<svg height="14%" width="10%"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:rgb(';
+str+=c1+','+c2+','+c3+');stop-opacity:1" /><stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" /> </linearGradient></defs><ellipse cx="50%" cy="50%" rx="50%" ry="30%" fill="url(#grad1)" /> <text fill="#ffffff" font-size="150%" font-family="Verdana"  x="25%" y="60%">';
+str+= ltr + ' </text> Sorry, your browser does not support inline SVG.</svg>';
+document.getElementById('a').innerHTML=str;
+}
+</script>
+</body>
+
+</html>
