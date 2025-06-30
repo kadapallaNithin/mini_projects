@@ -1,4 +1,6 @@
 # Mountain Car
+[code](./mountain_car.py)
+
 Training for 5000 episodes gave a good model.<br>
 But despite increasing number of episodes from 5000 to 20000, produced a bad model.
 

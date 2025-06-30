@@ -28,6 +28,8 @@ def run(episodes=10000, is_training=True, render=False, np_seed=0, act_seed=42):
         # print(q)
     num_failures = 0
     for epi in range(episodes):
+        # If the seed is same, the reset will also be same.
+        # Hence should be random.
         state = env.reset(seed=np.random.randint(0,100))[0]
         terminated = truncated = False
         while not terminated and not truncated:
