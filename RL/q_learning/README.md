@@ -1,6 +1,9 @@
 # Q Learning Projects
 ## FrozenLake-v1
-Done as part of Seasons of Code (SoC) at IIT Bombay during summer break of my M.Tech.
+Done as part of **Seasons of Code (SoC)** at IIT Bombay during summer break of my M.Tech.
+### Video demo of trained agent
+[![](https://img.youtube.com/vi/BjtfBRel-E4/default.jpg)](https://youtu.be/BjtfBRel-E4)
+
 ## Taxi-v3, MountainCar-v0
 Done incontinuation with FrozenLake-v1
 
