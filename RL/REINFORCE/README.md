@@ -70,15 +70,27 @@ Common baselines:
 ## 🔧 PyTorch Implementation
 ### CartPole-v1
 
-- [Simple CartPole-v1](./CartPole-v1/simple.py)
-- [CartPole-v1 with plots, model saving and testing](./CartPole-v1/full.py)
+- [Simple CartPole-v1](./CSDA/simple.py)
+- [CartPole-v1 with plots, model saving and testing](./CSDA/full.py)
 
 #### Training
 
-![](./CartPole-v1/Training_episode_returns.webp)
+![](./CSDA/Training_episode_returns.webp)
 #### Testing
 
-![](./CartPole-v1/Testing_episode_returns.webp)
+![](./CSDA/Testing_episode_returns.webp)
+
+### MountainCar-v0
+  Using same code as [CartPole-v1 with plots, model saving and testing](./CSDA/full.py), tried solving `MountainCar-v0` 
+  <!-- but it got struck in local optimum as it never visited -->
+
+| Problem             | Why it breaks REINFORCE                             |
+| ------------------- | --------------------------------------------------- |
+| Sparse rewards      | No signal until car reaches the goal                |
+| Long episodes       | 200 steps of -1 reward makes gradients tiny         |
+| Discrete actions    | Less expressive control for mountain dynamics       |
+| Momentum-based goal | Needs long-horizon planning, REINFORCE is too local |
+
 
 ## 📚 References
 

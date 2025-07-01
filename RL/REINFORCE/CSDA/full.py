@@ -66,11 +66,17 @@ class REINFORCEAgent:
         self.optimizer.step()
         self.reset()
 
-def simulate(num_episodes=500, is_training=True, render=False):
-    env = gym.make('CartPole-v1', render_mode='human' if render else None)
+def simulate(model_name, num_episodes=500, is_training=True, render=False):
+    if is_training:
+        prefix = 'Training'
+    else:
+        prefix = 'Testing'
+    print(prefix,model_name)
+
+    env = gym.make(model_name, render_mode='human' if render else None)
 
     agent = REINFORCEAgent(env.observation_space.shape[0], env.action_space.n)
-    model_file_name = 'REINFORCE_CartPole-v1.pth'
+    model_file_name = model_name + '.pth'
     if not is_training:
         agent.policy.load_state_dict(torch.load(model_file_name, weights_only=True))
 
@@ -95,10 +101,8 @@ def simulate(num_episodes=500, is_training=True, render=False):
 
     if is_training:
         torch.save(agent.policy.state_dict(), model_file_name)
-        prefix = 'Training'
-    else:
-        prefix = 'Testing'
 
+    prefix += '_' + model_name
     plt.plot(reward_history)
     plt.xlabel('Episode')
     plt.ylabel('Episode Return')
@@ -106,10 +110,12 @@ def simulate(num_episodes=500, is_training=True, render=False):
     plt.savefig(prefix + '_episode_returns.webp')
 
 if __name__ == '__main__':
+    model_name = 'CartPole-v1'
+    # model_name = 'MountainCar-v0'
     # mode = 'train'
     mode = 'test'
     if mode == 'train':
-        simulate(500)
+        simulate(model_name, 500)
     else:
-        simulate(10, is_training=False)
-        simulate(5, is_training=False, render=True)
+        simulate(model_name, 10, is_training=False)
+        simulate(model_name, 5, is_training=False, render=True)
